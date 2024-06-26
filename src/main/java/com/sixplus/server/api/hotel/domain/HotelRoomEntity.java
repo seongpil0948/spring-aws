@@ -1,11 +1,13 @@
 package com.sixplus.server.api.hotel.domain;
 
-import com.springtour.example.chapter08.domain.converter.HotelRoomTypeConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
+
+import com.sixplus.server.api.hotel.domain.converter.HotelRoomTypeConverter;
+
 import java.math.BigDecimal;
 
 @EqualsAndHashCode

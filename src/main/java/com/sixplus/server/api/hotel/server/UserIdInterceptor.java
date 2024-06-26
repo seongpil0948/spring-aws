@@ -1,19 +1,22 @@
 package com.sixplus.server.api.hotel.server;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Slf4j
 public class UserIdInterceptor implements HandlerInterceptor {
 
 
+    
     @Override
-    public boolean preHandle(HttpServletRequest request,
-                             HttpServletResponse response,
-                             Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request,
+                             @NonNull HttpServletResponse response,
+                             @NonNull Object handler) {
 
         String userId = request.getHeader("user-id");
         UserIdHolder.setUserId(userId);
@@ -22,9 +25,9 @@ public class UserIdInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request,
-                                HttpServletResponse response,
-                                Object handler, Exception ex) {
+    public void afterCompletion(@NonNull  HttpServletRequest request,
+                                @NonNull  HttpServletResponse response,
+                                @NonNull  Object handler,   @SuppressWarnings("null") Exception ex) {
         UserIdHolder.unset();
     }
 }

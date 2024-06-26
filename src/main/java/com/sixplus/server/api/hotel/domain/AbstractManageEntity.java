@@ -1,10 +1,12 @@
 package com.sixplus.server.api.hotel.domain;
 
-import com.springtour.example.chapter08.server.UserIdHolder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+
+import com.sixplus.server.api.hotel.server.UserIdHolder;
+
 import java.time.ZonedDateTime;
 
 @Slf4j
