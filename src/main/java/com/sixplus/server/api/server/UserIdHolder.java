@@ -1,4 +1,4 @@
-package com.sixplus.server.api.hotel.server;
+package com.sixplus.server.api.server;
 
 public class UserIdHolder {
 

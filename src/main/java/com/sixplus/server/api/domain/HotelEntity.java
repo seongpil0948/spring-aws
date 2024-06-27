@@ -1,18 +1,18 @@
-package com.sixplus.server.api.hotel.domain;
+package com.sixplus.server.api.domain;
 
+import com.sixplus.server.api.domain.converter.HotelStatusConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import javax.persistence.*;
 
-import com.sixplus.server.api.hotel.domain.converter.HotelStatusConverter;
-import com.sixplus.server.api.hotel.service.HotelAuditListener;
+import com.sixplus.server.api.service.HotelAuditListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Getter
 @ToString
 @Entity(name = "hotels")

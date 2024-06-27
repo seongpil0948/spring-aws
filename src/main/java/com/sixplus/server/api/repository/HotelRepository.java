@@ -1,7 +1,7 @@
-package com.sixplus.server.api.hotel.repository;
+package com.sixplus.server.api.repository;
 
-import com.sixplus.server.api.hotel.domain.HotelEntity;
-import com.sixplus.server.api.hotel.domain.HotelStatus;
+import com.sixplus.server.api.domain.HotelEntity;
+import com.sixplus.server.api.domain.HotelStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,3 +20,4 @@ public interface HotelRepository extends JpaRepository<HotelEntity, Long> {
     @Query("SELECT h FROM hotels AS h WHERE h.hotelId = :hotelId AND h.status = :status")
     HotelEntity findOne(@Param("hotelId") Long hotelId, @Param("status") HotelStatus status);
 }
+

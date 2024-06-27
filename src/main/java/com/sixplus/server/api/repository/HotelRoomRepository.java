@@ -1,6 +1,6 @@
-package com.sixplus.server.api.hotel.repository;
+package com.sixplus.server.api.repository;
 
-import com.sixplus.server.api.hotel.domain.HotelRoomEntity;
+import com.sixplus.server.api.domain.HotelRoomEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

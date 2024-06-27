@@ -1,12 +1,12 @@
-package com.sixplus.server.api.hotel.service;
+package com.sixplus.server.api.service;
 
-import com.sixplus.server.api.hotel.controller.HotelCreateRequest;
-import com.sixplus.server.api.hotel.controller.HotelCreateResponse;
-import com.sixplus.server.api.hotel.controller.HotelResponse;
-import com.sixplus.server.api.hotel.domain.HotelEntity;
-import com.sixplus.server.api.hotel.domain.HotelRoomEntity;
-import com.sixplus.server.api.hotel.domain.HotelRoomType;
-import com.sixplus.server.api.hotel.repository.HotelRepository;
+import com.sixplus.server.api.controller.HotelCreateRequest;
+import com.sixplus.server.api.controller.HotelCreateResponse;
+import com.sixplus.server.api.controller.HotelResponse;
+import com.sixplus.server.api.domain.HotelEntity;
+import com.sixplus.server.api.domain.HotelRoomEntity;
+import com.sixplus.server.api.domain.HotelRoomType;
+import com.sixplus.server.api.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;

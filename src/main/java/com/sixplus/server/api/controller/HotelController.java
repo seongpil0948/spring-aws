@@ -1,15 +1,16 @@
-package com.sixplus.server.api.hotel.controller;
+package com.sixplus.server.api.controller;
 
-import com.sixplus.server.api.hotel.service.HotelService;
+import com.sixplus.server.api.service.HotelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/api/hotel")
 public class HotelController {
 
-    private HotelService hotelService;
+    private final HotelService hotelService;
 
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;

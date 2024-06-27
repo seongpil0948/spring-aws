@@ -1,6 +1,6 @@
-package com.sixplus.server.api.hotel.domain.converter;
+package com.sixplus.server.api.domain.converter;
 
-import com.sixplus.server.api.hotel.domain.HotelRoomType;
+import com.sixplus.server.api.domain.HotelRoomType;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.AttributeConverter;

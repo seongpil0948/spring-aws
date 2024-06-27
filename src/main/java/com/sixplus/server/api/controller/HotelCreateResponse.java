@@ -1,4 +1,4 @@
-package com.sixplus.server.api.hotel.controller;
+package com.sixplus.server.api.controller;
 
 import lombok.Getter;
 import lombok.Setter;

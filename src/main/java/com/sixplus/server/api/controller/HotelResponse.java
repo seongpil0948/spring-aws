@@ -1,7 +1,7 @@
-package com.sixplus.server.api.hotel.controller;
+package com.sixplus.server.api.controller;
 
-import com.sixplus.server.api.hotel.domain.HotelEntity;
-import com.sixplus.server.api.hotel.domain.HotelStatus;
+import com.sixplus.server.api.domain.HotelEntity;
+import com.sixplus.server.api.domain.HotelStatus;
 import lombok.Getter;
 
 @Getter

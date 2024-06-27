@@ -1,7 +1,7 @@
-package com.sixplus.server.api.hotel.domain.converter;
+package com.sixplus.server.api.domain.converter;
 
 
-import com.sixplus.server.api.hotel.domain.HotelStatus;
+import com.sixplus.server.api.domain.HotelStatus;
 
 import javax.persistence.AttributeConverter;
 import java.util.Objects;

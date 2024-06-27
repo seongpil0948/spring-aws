@@ -1,4 +1,4 @@
-package com.sixplus.server.api.hotel.domain;
+package com.sixplus.server.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

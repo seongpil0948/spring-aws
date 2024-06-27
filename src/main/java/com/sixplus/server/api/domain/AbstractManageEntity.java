@@ -1,11 +1,11 @@
-package com.sixplus.server.api.hotel.domain;
+package com.sixplus.server.api.domain;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
-import com.sixplus.server.api.hotel.server.UserIdHolder;
+import com.sixplus.server.api.server.UserIdHolder;
 
 import java.time.ZonedDateTime;
 

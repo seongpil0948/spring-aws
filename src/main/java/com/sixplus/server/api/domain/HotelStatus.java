@@ -1,4 +1,4 @@
-package com.sixplus.server.api.hotel.domain;
+package com.sixplus.server.api.domain;
 
 import java.util.Arrays;
 import java.util.Map;

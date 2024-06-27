@@ -1,6 +1,6 @@
-package com.sixplus.server.api.hotel.service;
+package com.sixplus.server.api.service;
 
-import com.sixplus.server.api.hotel.domain.HotelEntity;
+import com.sixplus.server.api.domain.HotelEntity;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.PostPersist;
