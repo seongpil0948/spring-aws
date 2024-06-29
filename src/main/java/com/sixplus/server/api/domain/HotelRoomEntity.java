@@ -1,13 +1,12 @@
 package com.sixplus.server.api.domain;
 
+
+import com.sixplus.server.api.domain.converter.HotelRoomTypeConverter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.*;
-
-import com.sixplus.server.api.domain.converter.HotelRoomTypeConverter;
-
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode

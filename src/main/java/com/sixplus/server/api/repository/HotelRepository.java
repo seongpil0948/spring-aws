@@ -14,6 +14,8 @@ public interface HotelRepository extends JpaRepository<HotelEntity, Long> {
 
     List<HotelEntity> findByStatus(HotelStatus status);
 
+    HotelEntity findByHotelId(Long hotelId);
+
     @Query("SELECT h FROM hotels AS h WHERE h.hotelId = ?1 AND h.status = 0")
     HotelEntity findReadyOne(Long hotelId);
 

@@ -3,9 +3,12 @@ package com.sixplus.server.api.domain.converter;
 
 import com.sixplus.server.api.domain.HotelStatus;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+
 import java.util.Objects;
 
+@Converter
 public class HotelStatusConverter implements AttributeConverter<HotelStatus, Integer> {
 
     @Override

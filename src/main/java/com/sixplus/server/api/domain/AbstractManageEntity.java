@@ -3,7 +3,7 @@ package com.sixplus.server.api.domain;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.sixplus.server.api.server.UserIdHolder;
 

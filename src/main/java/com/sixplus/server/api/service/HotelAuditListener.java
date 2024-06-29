@@ -3,9 +3,9 @@ package com.sixplus.server.api.service;
 import com.sixplus.server.api.domain.HotelEntity;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.PostPersist;
-import javax.persistence.PostRemove;
-import javax.persistence.PostUpdate;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PostRemove;
+import jakarta.persistence.PostUpdate;
 
 @Slf4j
 public class HotelAuditListener {

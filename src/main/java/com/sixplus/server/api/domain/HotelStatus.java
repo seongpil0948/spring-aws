@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public enum HotelStatus {
 
-    OPEN(1), CLOSED(-1), READY(0);
+    OPEN(1), CLOSED(-1), READY(0), REJECTED(2), REJECT(3);
 
     private static Map<Integer, HotelStatus> valueMap = Arrays.stream(HotelStatus.values())
             .collect(Collectors.toMap(HotelStatus::getValue, Function.identity()));
