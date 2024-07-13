@@ -8,7 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import com.sixplus.server.api.reflect.models.Child;
+import com.sixplus.server.api.reflect.model.Child;
 
 @Service
 public class ReflectService {
@@ -37,7 +37,7 @@ public class ReflectService {
 
     public static void handleStatic() {
         try {
-            Class<?> clazz = Class.forName("com.sixplus.server.api.reflect.models.StaticExample");
+            Class<?> clazz = Class.forName("com.sixplus.server.api.reflect.model.StaticExample");
             Field field = clazz.getField("EXAMPLE");
             System.out.println("Static field: " + field.get(null));
 
@@ -100,7 +100,7 @@ public class ReflectService {
     }
 
     public static Class<?> findClass() throws ClassNotFoundException, NoSuchMethodException {
-        // static 변수를 이용한 클래스 로딩
+        // 변수를 이용한 클래스 로딩
         Class<?> clazz = Child.class;
         System.out.println(clazz.getName()); // Class name: Child
 

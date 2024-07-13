@@ -1,6 +1,6 @@
 package com.sixplus.server.api.user.service;
 
-import com.sixplus.server.api.user.domain.TB_QUEUE;
+import com.sixplus.server.api.user.model.QueueEntity;
 import com.sixplus.server.api.user.repository.QueueRepository;
 import com.sixplus.server.api.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class UserService {
         }
 
         // Add to queue
-        TB_QUEUE newQueueEntry = new TB_QUEUE();
+        QueueEntity newQueueEntry = new QueueEntity();
         newQueueEntry.setId(id);
         newQueueEntry.setPassword(password);
         newQueueEntry.setGender(gender);

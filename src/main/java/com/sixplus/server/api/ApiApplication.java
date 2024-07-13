@@ -1,7 +1,6 @@
 package com.sixplus.server.api;
 
-import com.sixplus.server.api.domain.HotelEntity;
-import com.sixplus.server.api.repository.HotelRepository;
+import com.sixplus.server.api.hotel.repository.HotelRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;

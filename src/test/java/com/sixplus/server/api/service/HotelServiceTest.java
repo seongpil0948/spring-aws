@@ -1,11 +1,12 @@
 package com.sixplus.server.api.service;
 
-import com.sixplus.server.api.controller.HotelCreateRequest;
-import com.sixplus.server.api.controller.HotelCreateResponse;
-import com.sixplus.server.api.domain.HotelEntity;
-import com.sixplus.server.api.domain.HotelRoomEntity;
-import com.sixplus.server.api.repository.HotelRepository;
-import com.sixplus.server.api.repository.HotelRoomRepository;
+import com.sixplus.server.api.hotel.dto.HotelCreateRequest;
+import com.sixplus.server.api.hotel.dto.HotelCreateResponse;
+import com.sixplus.server.api.hotel.model.HotelEntity;
+import com.sixplus.server.api.hotel.model.HotelRoomEntity;
+import com.sixplus.server.api.hotel.repository.HotelRepository;
+import com.sixplus.server.api.hotel.repository.HotelRoomRepository;
+import com.sixplus.server.api.hotel.service.HotelService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

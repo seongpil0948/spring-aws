@@ -1,7 +1,8 @@
 package com.sixplus.server.api.repository;
 
-import com.sixplus.server.api.domain.HotelEntity;
-import com.sixplus.server.api.domain.HotelStatus;
+import com.sixplus.server.api.hotel.model.HotelEntity;
+import com.sixplus.server.api.hotel.model.HotelStatus;
+import com.sixplus.server.api.hotel.repository.HotelRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
