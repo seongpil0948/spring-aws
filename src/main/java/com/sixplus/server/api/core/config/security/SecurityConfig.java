@@ -9,6 +9,7 @@ import org.springframework.security.authentication.DefaultAuthenticationEventPub
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -26,7 +27,7 @@ public class SecurityConfig {
 				// .csrf(Customizer.withDefaults())
 				// FIXME: CSRF is disabled for now, but it should be enabled in a real
 				// application
-				.csrf(csrf -> csrf.disable())
+				.csrf(AbstractHttpConfigurer::disable)
 				.httpBasic(Customizer.withDefaults())
 				.formLogin(Customizer.withDefaults());
 

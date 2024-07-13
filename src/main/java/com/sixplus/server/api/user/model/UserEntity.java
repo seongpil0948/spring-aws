@@ -35,8 +35,6 @@ public class UserEntity extends AbstractManageEntity {
 
     @OneToOne(mappedBy = "user")
     private QueueEntity queue;
-
-    // 기존 생성자나 메서드 등을 통해 id와 userName을 설정한 후 호출합니다.
     public void updateId() {
         if (this.userName != null && !this.userName.isEmpty()) {
             this.id = genUUID(this.id, this.userName);

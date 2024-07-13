@@ -1,5 +1,6 @@
-package com.sixplus.server.api.core.server;
+package com.sixplus.server.api.core.http.interceptor;
 
+import com.sixplus.server.api.core.server.UserIdHolder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.lang.NonNull;

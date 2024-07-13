@@ -9,16 +9,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
 
-/**
-* <pre>
-* 1. 패키지명 : com.dw.mcc.core.common
-* 2. 타입명 : MessageService.java
-* 3. 작성일 : 2021. 12. 30
-* 4. 작성자 : Mcircle
-* 5. 설명   : 메시지 다국어 처리
-* Copyright mcircle corp. all right reserved
-* </pre>
-**/
 @Slf4j
 @RequiredArgsConstructor
 @Service

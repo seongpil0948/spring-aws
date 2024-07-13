@@ -100,18 +100,15 @@ public class ReflectService {
     }
 
     public static Class<?> findClass() throws ClassNotFoundException, NoSuchMethodException {
-        // 변수를 이용한 클래스 로딩
         Class<?> clazz = Child.class;
-        System.out.println(clazz.getName()); // Class name: Child
-
-        // Class.forName()을 이용한 클래스 로딩
+        System.out.println(clazz.getName());
         Class<?> clazz2 = null;
 
         clazz2 = Class.forName(packName);
         System.out.println("Class name: " + clazz2.getName());
 
         Constructor<?> constructor2 = clazz2.getDeclaredConstructor(String.class);
-        System.out.println("Constructor(String): " + constructor2.getName()); // Constructor(String): Child
+        System.out.println("Constructor(String): " + constructor2.getName());
 
         Constructor<?>[] constructors = clazz2.getDeclaredConstructors();
         for (Constructor<?> cons : constructors) {

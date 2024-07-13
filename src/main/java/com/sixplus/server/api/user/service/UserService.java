@@ -1,6 +1,7 @@
 package com.sixplus.server.api.user.service;
 
 import com.sixplus.server.api.user.model.QueueEntity;
+import com.sixplus.server.api.user.model.UserEntity;
 import com.sixplus.server.api.user.repository.QueueRepository;
 import com.sixplus.server.api.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,20 +11,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final QueueRepository queueRepository;
 
-    @Autowired
-    private QueueRepository queueRepository;
+    public UserService(QueueRepository queueRepository, UserRepository userRepository) {
+        this.queueRepository = queueRepository;
+        this.userRepository = userRepository;
+    }
 
     public String registerUser(String id, String password, String gender, String userName, String displayName, String email, String phone, String avatar) {
         if (userRepository.existsById(id)) {
-            return "È¸¿ø°¡ÀÔ ½ÇÆÐ: ÀÌ¹Ì Á¸ÀçÇÏ´Â »ç¿ëÀÚÀÔ´Ï´Ù.";
+            return "hi";
         }
 
         if (queueRepository.existsById(id)) {
             long queuePosition = queueRepository.countByGender(gender) + 1;
-            return String.format("´ç½ÅÀº %s ´ë±â¿­ %d ¹øÂ° ´ë±â¿­¿¡ À§Ä¡ÇÕ´Ï´Ù", gender.equals("male") ? "³²ÀÚ" : "¿©ÀÚ", queuePosition);
+            return String.format("bye", gender.equals("male") ? "Male" : "Female", queuePosition);
         }
 
         // Add to queue
@@ -34,6 +37,6 @@ public class UserService {
         queueRepository.save(newQueueEntry);
 
         long queuePosition = queueRepository.countByGender(gender);
-        return String.format("´ç½ÅÀº %s ´ë±â¿­ %d ¹øÂ° ´ë±â¿­¿¡ À§Ä¡ÇÕ´Ï´Ù", gender.equals("male") ? "³²ÀÚ" : "¿©ÀÚ", queuePosition);
+        return String.format("ï¿½ï¿½ï¿½ï¿½ï¿½ %s ï¿½ï¿½â¿­ %d ï¿½ï¿½Â° ï¿½ï¿½â¿­ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Õ´Ï´ï¿½", gender.equals("male") ? "ï¿½ï¿½ï¿½ï¿½" : "ï¿½ï¿½ï¿½ï¿½", queuePosition);
     }
 }

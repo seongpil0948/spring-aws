@@ -9,7 +9,6 @@ import lombok.ToString;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-@EqualsAndHashCode
 @Getter
 @ToString
 @Entity(name = "hotelRooms")
