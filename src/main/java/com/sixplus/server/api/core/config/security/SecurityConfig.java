@@ -1,53 +1,93 @@
 package com.sixplus.server.api.core.config.security;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.ApplicationEventPublisher;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationEventPublisher;
-import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
-import org.springframework.security.config.Customizer;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
+
+@RequiredArgsConstructor
 @EnableWebSecurity
 @Configuration
+@Import(value = { JwtTokenProvider.class, JwtAuthenticationEntryPoint.class, JwtAccessDeniedHandler.class })
 public class SecurityConfig {
+	private final JwtTokenProvider jwtTokenProvider;
+	private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
+	private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().requestMatchers("/favicon.ico", "/assets/**");
+	}
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-				// .addFilterBefore(new TenantFilter(), AuthorizationFilter.class)
-				// .addFilter(new TenantFilter())
-				.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
-				// .csrf(Customizer.withDefaults())
-				// FIXME: CSRF is disabled for now, but it should be enabled in a real
-				// application
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.csrf(AbstractHttpConfigurer::disable)
-				.httpBasic(Customizer.withDefaults())
-				.formLogin(Customizer.withDefaults());
+				.exceptionHandling(exception -> exception
+						.authenticationEntryPoint(jwtAtuthenticationEntryPoint)
+						.accessDeniedHandler(jwtAccessDeniedHandler))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/api/pub/**", "/api/auth/login","/api/auth/retoken", "/api/v1/auth/reLogin", "/",  "/health-check").permitAll()
+						.anyRequest().authenticated())
+				.addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+//		http
+//			// .addFilterBefore(new TenantFilter(), AuthorizationFilter.class)
+//			//	.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+//			.csrf(AbstractHttpConfigurer::disable)
+//			.httpBasic(Customizer.withDefaults())
+//			.formLogin(Customizer.withDefaults());
 
 		return http.build();
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(UserDetailsService.class)
-	InMemoryUserDetailsManager inMemoryUserDetailsManager() {
-		String generatedPassword = "1234124";
-		return new InMemoryUserDetailsManager(User.withUsername("user")
-				.password(generatedPassword).roles("SAMPLE_ROLE").build());
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+
+		configuration.addAllowedOriginPattern("*");
+		configuration.addAllowedHeader("*");
+		configuration.addAllowedMethod("*");
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+
+		return source;
 	}
-	// .password(generatedPassword).roles("ROLE_USER").build());
 
 	@Bean
-	@ConditionalOnMissingBean(AuthenticationEventPublisher.class)
-	DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher(ApplicationEventPublisher delegate) {
-		return new DefaultAuthenticationEventPublisher(delegate);
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
+//	@Bean
+//	@ConditionalOnMissingBean(UserDetailsService.class)
+//	InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+//		String generatedPassword = "1234124";
+//		return new InMemoryUserDetailsManager(User.withUsername("user")
+//				.password(generatedPassword).roles("SAMPLE_ROLE").build());
+//	}
+//	// .password(generatedPassword).roles("ROLE_USER").build());
+//
+//	@Bean
+//	@ConditionalOnMissingBean(AuthenticationEventPublisher.class)
+//	DefaultAuthenticationEventPublisher defaultAuthenticationEventPublisher(ApplicationEventPublisher delegate) {
+//		return new DefaultAuthenticationEventPublisher(delegate);
+//	}
 }
 
 /// **
