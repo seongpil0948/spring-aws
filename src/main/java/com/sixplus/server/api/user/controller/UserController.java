@@ -1,20 +1,44 @@
 package com.sixplus.server.api.user.controller;
 
+import com.sixplus.server.api.core.config.security.JwtTokenProvider;
+import com.sixplus.server.api.model.Response;
+import com.sixplus.server.api.user.model.LoginVO;
 import com.sixplus.server.api.user.repository.UserRepository;
+import com.sixplus.server.api.user.service.MemberService;
 import com.sixplus.server.api.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
 
+    private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    private final MemberService memberService;
+    @Value("${security.jwt.token.valid-key:valid}")
+    private List<String> validKeyList;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+
+    public UserController(UserService userService, UserRepository userRepository, JwtTokenProvider jwtTokenProvider, MemberService memberService) {
         this.userService = userService;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.memberService = memberService;
     }
+
+    /*
+     * 사용자 로그인
+     */
+    @PostMapping(value = "/login")
+    public Response<?> userLogin(@Valid @RequestBody LoginVO vo) {
+        return memberService.getUserInfoByUserId(vo);
+    }
+
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestParam String id,
@@ -30,14 +54,14 @@ public class UserController {
     }
 
     @PostMapping("/getUser/{uid}")
-    public ResponseEntity<String> getUser(@PathVariable("uid") String id) {
+    public Response<String> getUser(@PathVariable("uid") String id) {
 //        String result = userRepository.findById(id).get().toString();
-        return ResponseEntity.ok("User not found");
+        return Response.ok("User not found");
     }
 
     @GetMapping("/list")
-    public ResponseEntity<String> listUsers() {
+    public Response<String> listUsers() {
 //        String result = userRepository.findAll().toString();
-        return ResponseEntity.ok("No users found");
+        return Response.ok("No users found");
     }
 }

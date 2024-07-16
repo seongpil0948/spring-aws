@@ -30,9 +30,9 @@ public class DatabaseInitializer implements ApplicationRunner {
         // Initialize Users
         if (userRepository.count() < 3) {
             userRepository.saveAll(Arrays.asList(
-                    createUser("1", "user1", "User One", "user1@example.com", "123-456-7890", "Gold"),
-                    createUser("2", "user2", "User Two", "user2@example.com", "123-456-7891", "Silver"),
-                    createUser("3", "user3", "User Three", "user3@example.com", "123-456-7892", "Platinum")
+                    createUser("user1", "User One", "user1@example.com", "123-456-7890", "Gold"),
+                    createUser("user2", "User Two", "user2@example.com", "123-456-7891", "Silver"),
+                    createUser("user3", "User Three", "user3@example.com", "123-456-7892", "Platinum")
             ));
         }
 

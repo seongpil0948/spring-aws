@@ -31,7 +31,6 @@ public class UserService {
 
         // Add to queue
         QueueEntity newQueueEntry = new QueueEntity();
-        newQueueEntry.setId(id);
         newQueueEntry.setPassword(password);
         newQueueEntry.setGender(gender);
         queueRepository.save(newQueueEntry);

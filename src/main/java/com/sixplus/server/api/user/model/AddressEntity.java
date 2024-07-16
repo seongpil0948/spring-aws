@@ -24,7 +24,6 @@ public class AddressEntity {
     private String town;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     // getters and setters

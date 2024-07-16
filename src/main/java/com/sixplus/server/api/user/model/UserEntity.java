@@ -10,12 +10,12 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_user")
-
 @Getter
 @Setter
 @NoArgsConstructor
 public class UserEntity extends AbstractManageEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     private String userName;
@@ -29,32 +29,22 @@ public class UserEntity extends AbstractManageEntity {
     private String avatar;
     private boolean isFavorite;
     private String membership;
+    private String roles;
+    private String password;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<AddressEntity> addresses = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private QueueEntity queue;
-    public void updateId() {
-        if (this.userName != null && !this.userName.isEmpty()) {
-            this.id = genUUID(this.id, this.userName);
-        }
-    }
 
-    private String genUUID(String userId, String name) {
-        String source = userId + ":" + name;
-        UUID uuid = UUID.nameUUIDFromBytes(source.getBytes());
-        return uuid.toString();
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-        updateId();
-    }
 
-    static public UserEntity createUser(String id, String userName, String displayName, String email, String phone, String membership) {
+    static public UserEntity createUser(String userName, String displayName, String email, String phone, String membership) {
         UserEntity user = new UserEntity();
-        user.setId(id);
         user.setUserName(userName);
         user.setDisplayName(displayName);
         user.setEmail(email);
@@ -66,7 +56,8 @@ public class UserEntity extends AbstractManageEntity {
         user.setAvatar(null);
         user.setFavorite(false);
         user.setMembership(membership);
-        user.updateId();
+        user.setPassword("123");
+        user.setRoles("ROLE_USER");
         return user;
     }
 }

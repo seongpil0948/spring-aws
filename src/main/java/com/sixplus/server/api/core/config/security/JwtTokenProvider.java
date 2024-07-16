@@ -1,5 +1,6 @@
 package com.sixplus.server.api.core.config.security;
 
+import com.sixplus.server.api.user.model.MemberVo;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +46,9 @@ public class JwtTokenProvider {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(JwtUserInfo info) {
-        Claims claims = Jwts.claims().setSubject(info.getUserId());
-        claims.put("userInfo", info);
+    public String createToken(MemberVo info) {
+        Claims claims = Jwts.claims().setSubject(info.getUid());
+        claims.put("userInfo in createToken", info);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -60,9 +61,9 @@ public class JwtTokenProvider {
             .compact();
     }
 
-    public String createRefreshToken(JwtUserInfo info) {
-        Claims claims = Jwts.claims().setSubject(info.getUserId());
-        claims.put("userInfo", info);
+    public String createRefreshToken(MemberVo info) {
+        Claims claims = Jwts.claims().setSubject(info.getUid());
+        claims.put("userInfo in createRefreshToken", info);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + refreshValidityInMilliseconds);
@@ -76,7 +77,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        JwtUserInfo userInfo = this.getUserInfo(token);
+        MemberVo userInfo = this.getUserInfo(token);
 
         return new UsernamePasswordAuthenticationToken(userInfo, "", userInfo.getAuthorities());
     }
@@ -86,13 +87,13 @@ public class JwtTokenProvider {
      * @param token
      * @return
      */
-    public JwtUserInfo getUserInfo(String token) {
+    public MemberVo getUserInfo(String token) {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
 
         try {
-            return new JwtUserInfo(claims);
+            return new MemberVo(claims);
         } catch (Exception e) {
-            log.error("JwtUserInfo 파싱 오류");
+            log.error("MemberVo 파싱 오류");
             return null;
         }
     }

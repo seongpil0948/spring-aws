@@ -11,7 +11,7 @@ public class AuthorizationChecker {
 	private String applicationName;
 
 	public boolean check(String authRwd, String urlPattern) {
-		log.debug("########## url 접근 권한 체크 START ##########");
+		log.debug("[{}]########## url 접근 권한 체크 START ##########", applicationName);
 		log.debug("authRwd => {}, urlPattern => {}", authRwd, urlPattern);
 		boolean access = true;
 		log.debug("########## url 접근 권한 체크 END ##########");

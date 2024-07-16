@@ -4,6 +4,8 @@ import com.sixplus.server.api.hotel.model.AbstractManageEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 
 @Entity
 @Table(name = "tb_queue")
@@ -14,14 +16,14 @@ import lombok.*;
 //@EqualsAndHashCode(callSuper = true)
 public class QueueEntity extends AbstractManageEntity {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     private String password;
     private String gender;
 
     @OneToOne
     @MapsId
-    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     // getters and setters

@@ -42,18 +42,16 @@ public class SecurityConfig {
 						.accessDeniedHandler(jwtAccessDeniedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/api/pub/**", "/api/auth/login","/api/auth/retoken", "/api/v1/auth/reLogin", "/",  "/health-check").permitAll()
-						.anyRequest().authenticated())
+						.requestMatchers("/api/pub/**", "/api/pub/swagger-*","/api/auth/login", "/api/auth/retoken", "/api/v1/auth/reLogin", "/", "/health-check").permitAll()
+						.requestMatchers("/api/pub/swagger-ui.html", "/api/pub/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
+//						.requestMatchers("/api/**").authenticated()
+								.anyRequest().permitAll()
+				)
 				.addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-//		http
-//			// .addFilterBefore(new TenantFilter(), AuthorizationFilter.class)
-//			//	.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
-//			.csrf(AbstractHttpConfigurer::disable)
-//			.httpBasic(Customizer.withDefaults())
-//			.formLogin(Customizer.withDefaults());
 
 		return http.build();
 	}
+
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
