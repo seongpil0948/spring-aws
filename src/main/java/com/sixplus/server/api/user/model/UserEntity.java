@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserEntity extends AbstractManageEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     private String userName;

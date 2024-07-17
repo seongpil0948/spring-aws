@@ -5,8 +5,6 @@ import com.sixplus.server.api.utils.CmmCode;
 import com.sixplus.server.api.utils.ModelMapperUtils;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.exceptions.PersistenceException;
-import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -118,17 +116,6 @@ public class GlobalControllerExceptionHandler {
     }
 
     /**
-     * MyBatis 문법 오류 : 프론트앤드에서 MyBatis에러가 발생했을때 빨리 catch하기 위해서 만듬
-     * @param e MyBatisSystemException
-     * @return ResponseEntity<ErrorResponse>
-     */
-    @ExceptionHandler(MyBatisSystemException.class)
-    public ResponseEntity<ErrorResponse> handleMyBatisSystemException(MyBatisSystemException e) {
-        log.error("MyBatis 에러 : {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), "MyBatis 에러 발생"));
-    }
-
-    /**
      * SQL 문법 오류 : 프론트앤드에서 중복 오류를 빨리 catch하기 위해서 만듬
      * @param e DuplicateKeyException
      * @return ResponseEntity<ErrorResponse>
@@ -139,16 +126,6 @@ public class GlobalControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), "중복 데이터가 존재합니다."));
     }
 
-    /**
-     * SQL 문법 오류 : 프론트앤드에서 중복 오류를 빨리 catch하기 위해서 만듬
-     * @param e SQLIntegrityConstraintViolationException
-     * @return ResponseEntity<ErrorResponse>
-     */
-    @ExceptionHandler(PersistenceException.class)
-    public ResponseEntity<ErrorResponse> handlePersistenceException(PersistenceException e) {
-        log.error("PersistenceException 에러 : {}", e.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage()));
-    }
 
     /**
      * SQL 오류 : 프론트앤드에서 파라메터 전달을 잘 못하고 있을때 빨리 catch하기 위해서 만듬
