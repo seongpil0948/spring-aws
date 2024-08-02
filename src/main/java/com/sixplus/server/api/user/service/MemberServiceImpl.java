@@ -3,7 +3,7 @@ import com.sixplus.server.api.core.config.security.JwtAuthenticationProvider;
 import com.sixplus.server.api.core.config.security.JwtTokenProvider;
 import com.sixplus.server.api.core.exception.ShopErrorException;
 import com.sixplus.server.api.model.Response;
-import com.sixplus.server.api.user.model.LoginVO;
+import com.sixplus.server.api.user.model.AuthRequestDTO;
 import com.sixplus.server.api.user.model.MemberVo;
 import com.sixplus.server.api.user.model.UserEntity;
 import com.sixplus.server.api.user.repository.UserRepository;
@@ -54,7 +54,7 @@ public class MemberServiceImpl implements MemberService {
     private String activeProfile;
 
     @Override
-	public Response<?> getUserInfoByUserId(LoginVO vo) {
+	public Response<?> getUserInfoByUserId(AuthRequestDTO vo) {
 		String accessToken;
         String refreshToken;
         Map<String, Object> dataMap = new HashMap<>();
@@ -62,8 +62,8 @@ public class MemberServiceImpl implements MemberService {
         try {
             //
             MemberVo jwtUserInfo = new MemberVo();
-            jwtUserInfo.setUid(vo.getLoginId());
-            jwtUserInfo.setRoles(vo.getRoles());
+            jwtUserInfo.setUsername(vo.getLoginId());
+//            jwtUserInfo.setRoles(vo.getRoles());
 
             // Login_id 인증처리 사용
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtUserInfo, vo.getLoginPwd()));
@@ -88,12 +88,12 @@ public class MemberServiceImpl implements MemberService {
 
                         // Redis 서버가 shutdown되도 넘어간다.
 //                        redisFeignClient.setValue(RedisShopVO.of("TK:"+activeProfile+":U:"+userInfo.getUserId(), refreshToken, jwtTokenProvider.getRefreshValidityInMilliseconds() / 1000));
-                        valueOperations.set(CmmUtils.getRedisUserKey(activeProfile, userInfo.getUid()), refreshToken, Duration.ofMillis(jwtTokenProvider.getRefreshValidityInMilliseconds()));
+                        valueOperations.set(CmmUtils.getRedisUserKey(activeProfile, userInfo.getUsername()), refreshToken, Duration.ofMillis(jwtTokenProvider.getRefreshValidityInMilliseconds()));
                     } catch(Exception e) {
                         log.error("Redis Server 이상 발생 {}", e.getMessage());
                     }
 
-					userInfo.setPw(null);
+					userInfo.setPassword(null);
                     dataMap.put("accessToken", accessToken);
                     dataMap.put("dataMap", userInfo);
 
@@ -118,16 +118,16 @@ public class MemberServiceImpl implements MemberService {
         return Response.ok(dataMap);
 	}
 
-    public MemberVo regenerateJwtUserInfo(LoginVO vo, MemberVo jwtUserInfo)  {
+    public MemberVo regenerateJwtUserInfo(AuthRequestDTO vo, MemberVo jwtUserInfo)  {
         Optional<UserEntity> user = userRepository.findById(vo.getLoginId());
         if (user.isEmpty()) {
             throw new ShopErrorException(CmmCode.SHOP_LOGIN_1000.getCode());
         }
 
         MemberVo userInfo = new MemberVo();
-        userInfo.setRoles(user.get().getRoles());
-        userInfo.setPw(null);
-        userInfo.setUid(vo.getLoginId());
+//        userInfo.setRoles(user.get().getRoles());
+        userInfo.setPassword(null);
+        userInfo.setUsername(vo.getLoginId());
 
         return userInfo;
     }

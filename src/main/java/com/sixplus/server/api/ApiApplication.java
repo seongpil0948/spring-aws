@@ -16,37 +16,4 @@ public class ApiApplication {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
-
-	@Bean
-	public CommandLineRunner demo(HotelRepository repository) {
-		return (args) -> {
-			// save a few customers
-//			repository.save(
-//					HotelEntity.of("The LINE LA", "3515 Wilshire Blvd, Los Angeles, CA 90010", "+12133817411")
-//			);
-//
-//			// fetch all hotels
-//			log.info("Customers found with findAll():");
-//			log.info("-------------------------------");
-//			repository.findAll().forEach(customer -> {
-//				log.info(customer.toString());
-//			});
-//			log.info("");
-
-//			// fetch an individual customer by ID
-//			HotelEntity hotel = repository.findByHotelId(1L);
-//			log.info("Hotel found with findById(1L):");
-//			log.info("--------------------------------");
-//			log.info(hotel.toString());
-//			log.info("");
-//
-//			// fetch customers by last name
-//			log.info("Customer found with findByLastName('Bauer'):");
-//			log.info("--------------------------------------------");
-//			repository.findByLastName("Bauer").forEach(bauer -> {
-//				log.info(bauer.toString());
-//			});
-			log.info("");
-		};
-	}
 }

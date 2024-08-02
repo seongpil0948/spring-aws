@@ -9,58 +9,59 @@ import io.jsonwebtoken.Claims;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Getter
 @Setter
-public class MemberVo implements UserDetails {
+public class MemberVo extends UserEntity implements UserDetails {
 
-    /** passwd (비밀번호) */
-    @JsonDeserialize(using = BCryptDeSerializer.class)
-    private String pw;
-    private String uid;
-    private String name;
-    private String email;
-    private String roles;
+    private String username;
+    private String password;
+    Collection<? extends GrantedAuthority> authorities;
+
+    public MemberVo(UserEntity byUsername) {
+        this.username = byUsername.getUsername();
+        this.password= byUsername.getPassword();
+        List<GrantedAuthority> auths = new ArrayList<>();
+
+        for(UserRoleEntity role : byUsername.getRoles()){
+
+            auths.add(new SimpleGrantedAuthority(role.getName().toUpperCase()));
+        }
+        this.authorities = auths;
+    }
+
+    public MemberVo() {
+
+    }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.stream(getRoles().split(","))
-                .map(SimpleGrantedAuthority::fromValue)
-                .collect(Collectors.toList());
+        return authorities;
     }
-    public MemberVo() {
-    }
+
 
     public MemberVo(Claims claims) throws Exception {
         ObjectMapper ob = new ObjectMapper();
         ob.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             MemberVo userInfo = ob.convertValue(claims.get("userInfo"), new TypeReference<MemberVo>() {});
-            this.uid = userInfo.getUid();
-            this.email = userInfo.getEmail();
-            this.name = userInfo.getName();
-            this.pw = userInfo.getPw();
-
+            this.setId(userInfo.getId());
+            this.setEmail(userInfo.getEmail());
+            this.setUsername(userInfo.getUsername());
+            this.setPassword(userInfo.getPassword());
         } catch(Exception e) {
             throw new Exception("MemberVo 파싱 오류");
         }
-    }
-
-    @Override
-    public String getPassword() {
-        return getPw();
-    }
-
-    @Override
-    public String getUsername() {
-        return getName();
     }
 
     @Override

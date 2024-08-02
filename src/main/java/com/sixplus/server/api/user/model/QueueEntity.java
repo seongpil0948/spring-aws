@@ -17,7 +17,7 @@ import java.util.UUID;
 public class QueueEntity extends AbstractManageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private long id;
 
     private String password;
     private String gender;

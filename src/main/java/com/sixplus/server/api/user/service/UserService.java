@@ -19,7 +19,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String registerUser(String id, String password, String gender, String userName, String displayName, String email, String phone, String avatar) {
+    public String registerUser(String id, String password, String gender, String username, String displayName, String email, String phone, String avatar) {
         if (userRepository.existsById(id)) {
             return "hi";
         }

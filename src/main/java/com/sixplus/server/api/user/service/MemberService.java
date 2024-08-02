@@ -2,7 +2,7 @@ package com.sixplus.server.api.user.service;
 
 
 import com.sixplus.server.api.model.Response;
-import com.sixplus.server.api.user.model.LoginVO;
+import com.sixplus.server.api.user.model.AuthRequestDTO;
 import com.sixplus.server.api.user.model.MemberVo;
 
 /**
@@ -18,10 +18,10 @@ import com.sixplus.server.api.user.model.MemberVo;
 public interface MemberService {
 	
 	/** 사용자 로그인 **/
-	Response<?> getUserInfoByUserId(LoginVO vo);
+	Response<?> getUserInfoByUserId(AuthRequestDTO vo);
 
 
 	/** 더샵 사용자 Retoken **/
-	public MemberVo regenerateJwtUserInfo(LoginVO vo, MemberVo jwtUserInfo);
+	public MemberVo regenerateJwtUserInfo(AuthRequestDTO vo, MemberVo jwtUserInfo);
 
 }

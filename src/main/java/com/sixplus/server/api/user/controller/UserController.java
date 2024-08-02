@@ -2,11 +2,10 @@ package com.sixplus.server.api.user.controller;
 
 import com.sixplus.server.api.core.config.security.JwtTokenProvider;
 import com.sixplus.server.api.model.Response;
-import com.sixplus.server.api.user.model.LoginVO;
+import com.sixplus.server.api.user.model.AuthRequestDTO;
 import com.sixplus.server.api.user.repository.UserRepository;
 import com.sixplus.server.api.user.service.MemberService;
 import com.sixplus.server.api.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +34,7 @@ public class UserController {
      * 사용자 로그인
      */
     @PostMapping(value = "/login")
-    public Response<?> userLogin(@Valid @RequestBody LoginVO vo) {
+    public Response<?> userLogin(@Valid @RequestBody AuthRequestDTO vo) {
         return memberService.getUserInfoByUserId(vo);
     }
 
@@ -44,12 +43,12 @@ public class UserController {
     public ResponseEntity<String> register(@RequestParam String id,
                                            @RequestParam String password,
                                            @RequestParam String gender,
-                                           @RequestParam String userName,
+                                           @RequestParam String username,
                                            @RequestParam String displayName,
                                            @RequestParam String email,
                                            @RequestParam String phone,
                                            @RequestParam String avatar) {
-        String result = userService.registerUser(id, password, gender, userName, displayName, email, phone, avatar);
+        String result = userService.registerUser(id, password, gender, username, displayName, email, phone, avatar);
         return ResponseEntity.ok(result);
     }
 
