@@ -7,9 +7,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 @Getter
 @ToString
@@ -67,5 +68,15 @@ public class HotelEntity extends AbstractManageEntity {
     public void addHotelRooms(List<HotelRoomEntity> hotelRoomEntities) {
         this.roomCount += hotelRoomEntities.size();
         this.hotelRoomEntities.addAll(hotelRoomEntities);
+    }
+
+    public static HotelEntity createRandom() {
+        HotelEntity hotel = new HotelEntity();
+        hotel.name = "Hotel " + UUID.randomUUID().toString().substring(0, 5);
+        hotel.status = HotelStatus.READY;
+        hotel.address = "Address " + UUID.randomUUID().toString().substring(0, 5);
+        hotel.phoneNumber = "123-456-" + new Random().nextInt(10000);
+        hotel.roomCount = 0;
+        return hotel;
     }
 }

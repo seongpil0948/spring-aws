@@ -43,21 +43,21 @@ public class UserEntity extends AbstractManageEntity {
     @ToString.Exclude
     private QueueEntity queue;
 
-
-    static public UserEntity createUser(String username, String displayName, String email, String phone, String membership, String password) {
+    public static UserEntity createRandom(String password, Set<UserRoleEntity> roles) {
         UserEntity user = new UserEntity();
-        user.setUsername(username);
-        user.setDisplayName(displayName);
-        user.setEmail(email);
-        user.setEmailVerified(false);
-        user.setPhone(phone);
-        user.setPrefersNotifications(false);
-        user.setSeasonalPhoto(null);
-        user.setAvatar(null);
-        user.setFavorite(false);
-        user.setMembership(membership);
-
-        user.setPassword(password);
+        user.username = "user" + UUID.randomUUID().toString().substring(0, 5);
+        user.displayName = "User " + UUID.randomUUID().toString().substring(0, 5);
+        user.email = user.username + "@example.com";
+        user.emailVerified = true;
+        user.phone = "123-456-" + new Random().nextInt(10000);
+        user.defaultAddressID = UUID.randomUUID();
+        user.prefersNotifications = new Random().nextBoolean();
+        user.seasonalPhoto = "default.jpg";
+        user.avatar = "default.jpg";
+        user.isFavorite = new Random().nextBoolean();
+        user.membership = "Gold";
+        user.password = password;
+        user.roles = roles;
         return user;
     }
 }

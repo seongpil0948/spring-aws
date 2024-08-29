@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -29,7 +30,7 @@ public class HotelService {
     public HotelResponse getHotelById(Long hotelId) {
 
         return hotelRepository.findById(hotelId)
-                .map(HotelResponse::of)
+                .map(HotelResponse::onlyEntity)
                 .orElse(HotelResponse.EMPTY);
     }
 
@@ -41,9 +42,10 @@ public class HotelService {
                 createRequest.getPhoneNumber());
 
         int roomCount = createRequest.getRoomCount();
-        List<HotelRoomEntity> hotelRoomEntities = IntStream.range(0, roomCount)
-                .mapToObj(i -> HotelRoomEntity.of("ROOM-" + i, HotelRoomType.DOUBLE, BigDecimal.valueOf(100)))
-                .collect(Collectors.toList());
+//        List<HotelRoomEntity> hotelRoomEntities = IntStream.range(0, roomCount)
+//                .mapToObj(i -> HotelRoomEntity.of("ROOM-" + i, HotelRoomType.DOUBLE, BigDecimal.valueOf(100), 1, 1, 1))
+//                .collect(Collectors.toList());
+        List<HotelRoomEntity> hotelRoomEntities = Arrays.stream(HotelRoomEntity.createRandomEntities(roomCount)).toList();
         hotelEntity.addHotelRooms(hotelRoomEntities);
 
         hotelRepository.save(hotelEntity);

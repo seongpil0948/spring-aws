@@ -1,6 +1,7 @@
 package com.sixplus.server.api.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
@@ -8,6 +9,7 @@ import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 
 
 public class JsonUtils {
+    public static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static JsonNode search(Configuration jacksonConfig, String source, String searchKey) {
         return JsonPath.using(jacksonConfig).parse(source.toString()).read(searchKey, JsonNode.class);

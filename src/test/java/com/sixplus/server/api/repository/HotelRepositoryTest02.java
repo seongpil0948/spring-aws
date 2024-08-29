@@ -11,7 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.TestPropertySource;
 
 @DataJpaTest
-@TestPropertySource(locations = "classpath:application-test-h2.properties")
+//@TestPropertySource(locations = "classpath:application-test-h2.properties")
 class HotelRepositoryTest02 {
 
     private static HotelEntity testHotelEntity;
