@@ -1,9 +1,10 @@
+package com.sixplus.server.api;
+
 import org.junit.jupiter.api.*;
 
 import java.util.HashSet;
 import java.util.Set;
 // MISC는 "Miscellaneous"의 약자로, 일반적으로 "잡다한", "여러 가지의", 또는 "기타"라는 의미를 갖습니다.
-// 주로 분류되지 않는 여러 종류의 항목들을 묶을 때 사용됩니다.
 public class MiscTest {
 
     @BeforeAll
